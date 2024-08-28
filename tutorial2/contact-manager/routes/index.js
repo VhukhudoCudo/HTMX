@@ -41,6 +41,8 @@ router.get('/contacts/:id', (req, res) => {
   }
 });
 
+
+
 // GET /contacts/1/edit
 router.get('/contacts/:id/edit', (req, res) => {
   const { id } = req.params;

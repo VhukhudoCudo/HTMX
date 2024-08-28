@@ -1,0 +1,22 @@
+- isEditing = () => !(Object.keys(list).length === 0);
+
+h2=isEditing() ? "Edit List" : "New List"
+
+form(
+  action=isEditing() ? `/update/${list.id}?_method=PUT` : '/lists',
+  method='POST',
+
+  hx-post=isEditing() ? false : '/lists',
+  hx-put=isEditing() ? `/update/${list.id}` : false,
+  hx-target='#sidebar',
+  hx-push-url=isEditing() ? `/lists/${list.id}` : false
+  hx-on::after-request='if(event.detail.successful) this.reset()',
+)
+  label(for='item') item:
+  input#item(type='text', item='item', required, value=list.item)
+
+  label(for='price') Price:
+  input#price(type='price', item='price', required, value=list.price)
+
+  div.actions
+    button(type='submit') Submit

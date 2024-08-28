@@ -1,0 +1,17 @@
+ul.list-item
+  each list in lists
+    li
+      a(
+        href=`/lists/${list.id}`,
+        hx-get=`/lists/${list.id}`,
+        hx-target='#content'
+        hx-push-url='true',
+      )= list.item
+
+div.actions
+  a(
+    href='/lists/new',
+    hx-get='/lists/new',
+    hx-target='#content',
+    hx-push-url='true'
+  ) New Items
