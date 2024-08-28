@@ -1,6 +1,6 @@
 - isEditing = () => !(Object.keys(list).length === 0);
 
-h2=isEditing() ? "Edit List" : "New List"
+h2=isEditing() ? "Edit list" : "New list"
 
 form(
   action=isEditing() ? `/update/${list.id}?_method=PUT` : '/lists',
@@ -12,11 +12,11 @@ form(
   hx-push-url=isEditing() ? `/lists/${list.id}` : false
   hx-on::after-request='if(event.detail.successful) this.reset()',
 )
-  label(for='item') item:
-  input#item(type='text', item='item', required, value=list.item)
+  label(for='item') Item:
+  input#item(type='text', name='item', required, value=list.item)
 
   label(for='price') Price:
-  input#price(type='price', item='price', required, value=list.price)
+  input#price(type='text', name='price', required, value=list.price)
 
   div.actions
     button(type='submit') Submit

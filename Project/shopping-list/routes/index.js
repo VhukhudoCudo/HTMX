@@ -3,12 +3,10 @@ const express = require('express');
 const router = express.Router();
 
 const lists = [
-  { id: 1,item: 'Rice', price: 'R120,00' },
-  { id: 2, item: 'Chicken',price: 'R150,00' },
-  { id: 3, item: 'Bread', price: 'R19,00' },
-  { id: 4, item: 'Juice', price: 'R55,00' },
-  { id: 5, item: 'Snacks',price: 'R110' },
-
+  { id: 1, item: 'Rice', price: 'R140' },
+  { id: 2, item: 'Chicken', price: 'R110' },
+  { id: 3, item: 'Bread', price: 'R19' },
+  { id: 4, item: 'Juice', price: 'R55' },
 ];
 
 // GET /lists
@@ -53,19 +51,19 @@ router.get('/lists/:id/edit', (req, res) => {
 
 // POST /lists
 router.post('/lists', (req, res) => {
-  const newList = {
+  const newlist = {
     id: lists.length + 1,
-   item: req.body.item,
+    item: req.body.item,
     price: req.body.price,
   };
 
-  lists.push(newList);
+  lists.push(newlist);
 
   if (req.headers['hx-request']) {
     res.render('sidebar', { lists }, (err, sidebarHtml) => {
       const html = `
         <main id="content" hx-swap-oob="afterbegin">
-          <p class="flash">List was successfully added!</p>
+          <p class="flash">list was successfully added!</p>
         </main>
         ${sidebarHtml}
       `;
@@ -80,15 +78,15 @@ router.post('/lists', (req, res) => {
 router.put('/update/:id', (req, res) => {
   const { id } = req.params;
 
-  const newList = {
+  const newlist = {
     id: Number(id),
     item: req.body.item,
-   price: req.body.price,
+    price: req.body.price,
   };
 
   const index = lists.findIndex((c) => c.id === Number(id));
 
-  if (index !== -1) lists[index] = newList;
+  if (index !== -1) lists[index] = newlist;
 
   if (req.headers['hx-request']) {
     res.render('sidebar', { lists }, (err, sidebarHtml) => {
@@ -96,7 +94,7 @@ router.put('/update/:id', (req, res) => {
         const html = `
           ${sidebarHtml}
           <main id="content" hx-swap-oob="true">
-            <p class="flash">List was successfully updated!</p>
+            <p class="flash">list was successfully updated!</p>
             ${listHTML}
           </main>
         `;
@@ -119,7 +117,7 @@ router.delete('/delete/:id', (req, res) => {
     res.render('sidebar', { lists }, (err, sidebarHtml) => {
       const html = `
         <main id="content" hx-swap-oob="true">
-          <p class="flash">List was successfully deleted!</p>
+          <p class="flash">list was successfully deleted!</p>
         </main>
         ${sidebarHtml}
       `;
